@@ -1,5 +1,5 @@
 'use strict';
-
+import { SafeAreaView } from 'react-navigation';
 var React = require('react');
 var PropTypes = require('prop-types');
 var {
@@ -462,12 +462,12 @@ var ModalBox = createReactClass({
     if (!visible) return <View/>
 
     var content = (
-      <View importantForAccessibility="yes" accessibilityViewIsModal={true} style={[styles.transparent, styles.absolute]} pointerEvents={'box-none'}>
+      <SafeAreaView importantForAccessibility="yes" accessibilityViewIsModal={true} style={[styles.transparent, styles.absolute]} pointerEvents={'box-none'}>
         <View style={{ flex: 1 }} pointerEvents={'box-none'} onLayout={this.onContainerLayout}>
           {visible && this.renderBackdrop()}
           {visible && this.renderContent()}
         </View>
-      </View>
+      </SafeAreaView>
     )
 
 if (!this.props.coverScreen) return content;
