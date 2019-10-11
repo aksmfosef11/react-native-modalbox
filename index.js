@@ -80,7 +80,7 @@ var ModalBox = createReactClass({
       backdropOpacity: 0.5,
       backdropColor: "black",
       backdropContent: null,
-      animationDuration: 400,
+      animationDuration: 200,
       backButtonClose: false,
       easing: Easing.elastic(0.8),
       coverScreen: false,
