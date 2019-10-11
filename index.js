@@ -73,7 +73,7 @@ var ModalBox = createReactClass({
     return {
       startOpen: false,
       backdropPressToClose: true,
-      swipeToClose: true,
+      swipeToClose: false,
       swipeThreshold: 50,
       position: "center",
       backdrop: true,
