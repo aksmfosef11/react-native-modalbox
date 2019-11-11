@@ -56,7 +56,7 @@ export default class ModalBox extends React.PureComponent {
     onClosed: PropTypes.func,
     onOpened: PropTypes.func,
     onClosingState: PropTypes.func,
-    backDropPressFunc: PropTypes.func,
+
   };
 
   static defaultProps = {
@@ -75,7 +75,7 @@ export default class ModalBox extends React.PureComponent {
     coverScreen: false,
     keyboardTopOffset: Platform.OS == 'ios' ? 22 : 0,
     useNativeDriver: true,
-    backDropPressFunc:() => {},
+
   };
 
   constructor(props) {
@@ -448,11 +448,6 @@ export default class ModalBox extends React.PureComponent {
     });
   }
 
-  closeFromBackDrop() {
-    this.props.backDropPressFunc();
-    this.close();
-  }
-
   /*
    * Render the backdrop element
    */
@@ -462,7 +457,7 @@ export default class ModalBox extends React.PureComponent {
     if (this.props.backdrop) {
       backdrop = (
         <TouchableWithoutFeedback
-          onPress={this.props.backdropPressToClose ? this.closeFromBackDrop : null}>
+          onPress={this.props.backdropPressToClose ? this.close : null}>
           <Animated.View
             importantForAccessibility="no"
             style={[styles.absolute, {opacity: this.state.backdropOpacity}]}>
