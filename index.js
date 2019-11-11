@@ -67,6 +67,7 @@ var ModalBox = createReactClass({
     onClosed: PropTypes.func,
     onOpened: PropTypes.func,
     onClosingState: PropTypes.func,
+    backDropPressFunc: PropTypes.func,
   },
 
   getDefaultProps: function () {
@@ -85,7 +86,8 @@ var ModalBox = createReactClass({
       easing: Easing.elastic(0.8),
       coverScreen: false,
       keyboardTopOffset: Platform.OS == 'ios' ? 22 : 0,
-      useNativeDriver: true
+      useNativeDriver: true,
+      backDropPressFunc:() => {},
     };
   },
 
@@ -417,6 +419,10 @@ var ModalBox = createReactClass({
     });
   },
 
+  closeFromBackDrop: function() {
+    this.props.backDropPressFunc();
+    this.close();
+  },
   /*
    * Render the backdrop element
    */
@@ -425,7 +431,7 @@ var ModalBox = createReactClass({
 
     if (this.props.backdrop) {
       backdrop = (
-        <TouchableWithoutFeedback onPress={this.props.backdropPressToClose ? this.close : null}>
+        <TouchableWithoutFeedback onPress={this.props.backdropPressToClose ? this.closeFromBackDrop : null}>
           <Animated.View importantForAccessibility="no" style={[styles.absolute, {opacity: this.state.backdropOpacity}]}>
             <View style={[styles.absolute, {backgroundColor:this.props.backdropColor, opacity: this.props.backdropOpacity}]}/>
             {this.props.backdropContent || []}
@@ -446,7 +452,7 @@ var ModalBox = createReactClass({
         onLayout={this.onViewLayout}
         style={[styles.wrapper, size, this.props.style, {transform: [{translateY: this.state.position}, {translateX: offsetX}]} ]}
         {...this.state.pan.panHandlers}>
-        {this.props.backdropPressToClose && <TouchableWithoutFeedback onPress={this.close}><View style={[styles.absolute]} /></TouchableWithoutFeedback>}
+        {this.props.backdropPressToClose && <TouchableWithoutFeedback onPress={this.closeFromBackDrop}><View style={[styles.absolute]} /></TouchableWithoutFeedback>}
         {this.props.children}
       </Animated.View>
     )
